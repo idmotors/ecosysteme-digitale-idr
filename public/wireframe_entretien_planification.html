@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wireframe — Entretien &amp; Planification Véhicule — ID Rental</title>
+<style>
+  :root {
+    --bg-page: #F4F3EF; --surface-1: #FFFFFF; --surface-2: #FAFAF8;
+    --border: #E3E1D9; --border-strong: #C9C6BA;
+    --text-primary: #1F2320; --text-secondary: #5B5B54; --text-muted: #8B897F;
+    --accent: #993C1D; --accent-bg: #FAECE7;
+    --accent2: #5C4A99; --accent2-bg: #E9E5F7;
+    --success: #1D9E75; --success-bg: #E1F5EE;
+    --warning: #BA7517; --warning-bg: #FAEEDA;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg-page); color: var(--text-primary); padding: 2rem; }
+  .page-header { max-width: 900px; margin: 0 auto 1.5rem; }
+  .page-header .eyebrow { font-size: 12.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .page-header h1 { font-size: 22px; font-weight: 600; margin: 0 0 8px; }
+  .page-header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+  .tabs { display: flex; gap: 8px; max-width: 900px; margin: 1rem auto 0; }
+  .tab { font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--surface-1); color: var(--text-secondary); cursor: pointer; }
+  .tab.active { background: var(--text-primary); color: white; border-color: var(--text-primary); }
+
+  .panel { max-width: 900px; margin: 1rem auto 0; background: var(--surface-1); border: 0.5px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+  .panel h2 { font-size: 17px; font-weight: 600; margin: 0 0 4px; }
+  .panel .sub { font-size: 12.5px; color: var(--text-muted); margin-bottom: 1.25rem; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 1rem; }
+  .field label { font-size: 13px; color: var(--text-secondary); display: block; margin-bottom: 4px; }
+  select, input[type="number"], input[type="text"], input[type="date"], textarea {
+    width: 100%; border-radius: 8px; border: 0.5px solid var(--border-strong); background: var(--surface-2);
+    padding: 8px 10px; font-size: 14px; color: var(--text-primary); font-family: inherit;
+  }
+  select, input { height: 38px; }
+  textarea { height: 60px; resize: vertical; }
+
+  button.btn-add { height: 40px; padding: 0 18px; border-radius: 8px; border: none; background: var(--accent); color: white; font-weight: 600; font-size: 13.5px; cursor: pointer; }
+  button.btn-add.planif { background: var(--accent2); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 1.25rem; }
+  thead th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); padding: 8px 10px; border-bottom: 1px solid var(--border-strong); }
+  tbody td { padding: 9px 10px; border-bottom: 0.5px solid var(--border); vertical-align: top; }
+  .veh { font-weight: 600; }
+  .badge { display: inline-block; font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 6px; }
+  .badge-preventif { background: var(--success-bg); color: var(--success); }
+  .badge-curatif { background: #FBE4E4; color: #B33A3A; }
+  .badge-statut { background: var(--warning-bg); color: var(--warning); }
+  .badge-termine { background: var(--success-bg); color: var(--success); }
+
+  .annotations { max-width: 900px; margin: 1.5rem auto 0; background: var(--surface-1); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; }
+  .annotations h3 { font-size: 15px; font-weight: 600; margin: 0 0 10px; }
+  .annotations ul { margin: 0; padding-left: 20px; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .annotations code { background: var(--accent-bg); color: var(--accent); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+  footer { max-width: 900px; margin: 1.5rem auto 0; font-size: 12px; color: var(--text-muted); text-align: center; }
+</style>
+<script async src="https://bolt.new/badge.js?s=53ca3d57-715d-4dd2-85d0-425a2ae1aa2b"></script></head>
+<body>
+
+<div class="page-header">
+  <div class="eyebrow">ID Rental — Stage Transformation Digitale</div>
+  <h1>Wireframe — Entretien &amp; Planification Véhicule</h1>
+  <p>Remplace le fichier Excel personnel du SO (perte d'historique constatée le 23/07) par un suivi centralisé et partagé.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" data-tab="entretien">Suivi Entretien</div>
+  <div class="tab" data-tab="planif">Planification / Remplacement</div>
+</div>
+
+<div class="panel" id="panel-entretien">
+  <h2>Nouvelle intervention SAV</h2>
+  <div class="sub">Remplace la ligne du fichier Excel personnel (IMMAT, CLIENTS, TRAVAUX, DATE ENTRÉE, DATE SORTIE, KM)</div>
+
+  <div class="grid-2">
+    <div class="field"><label>Véhicule</label><select><option>Sélectionner</option><option>5386TBP</option><option>1648TBP</option><option>0645TBV</option></select></div>
+    <div class="field"><label>Client gestionnaire</label><select><option>Sélectionner</option><option>AGRIVET</option><option>AGRIVAL</option><option>AGRIFARM</option><option>STAR</option><option>COLAS</option></select></div>
+    <div class="field"><label>Type</label><select><option>Préventif</option><option>Curatif</option></select></div>
+    <div class="field">
+	  <label>Origine</label>
+	  <select>
+	    <option>Équipe Technique (Interne IDR)</option>
+	    <option>ID Motors</option>
+	    <option>Externe</option>
+	  </select>
+	</div>
+    <div class="field"><label>Date d'entrée</label><input type="date" /></div>
+    <div class="field"><label>Date de sortie</label><input type="date" /></div>
+    <div class="field"><label>Kilométrage à l'intervention</label><input type="number" placeholder="Optionnel — souvent non renseigné" /></div>
+    <div class="field"></div>
+  </div>
+  <div class="field" style="margin-bottom:1rem;">
+    <label>Description des travaux</label>
+    <textarea placeholder="Ex : Entretien périodique, vérification pompe, remplacement rétroviseurs..."></textarea>
+  </div>
+  <button class="btn-add">+ Enregistrer l'intervention</button>
+
+  <table>
+    <thead><tr><th>Véhicule</th><th>Client</th><th>Travaux</th><th>Entrée → Sortie</th><th>Type</th></tr></thead>
+    <tbody>
+      <tr><td class="veh">1648TBP</td><td>AGRIVAL</td><td>Entretien périodique, vérification pompe, remplacement rétroviseurs</td><td>26/01 → 13/02</td><td><span class="badge badge-preventif">Préventif</span></td></tr>
+      <tr><td class="veh">5384TBP</td><td>AGRIVET</td><td>Remplacement pompe à main gasoil, vérification injecteurs</td><td>19/01 → 20/01</td><td><span class="badge badge-curatif">Curatif</span></td></tr>
+      <tr><td class="veh">0645TBV</td><td>AGRIFARM</td><td>Remplacement pneu 235/75R15</td><td>29/01 → 29/01</td><td><span class="badge badge-curatif">Curatif</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel" id="panel-planif" style="display:none;">
+  <h2>Nouvelle planification</h2>
+  <div class="sub">Dispatching et remplacement de véhicule — domaine non couvert avant le CR du 23/07</div>
+
+  <div class="grid-2">
+    <div class="field"><label>Véhicule</label><select><option>Sélectionner</option><option>5386TBP</option><option>1648TBP</option></select></div>
+    <div class="field"><label>Véhicule de remplacement</label><select><option>Aucun</option><option>0645TBV</option><option>5719TBN</option></select></div>
+    <div class="field"><label>Client concerné</label><select><option>Aucun (interne)</option><option>AGRIVET</option><option>STAR</option></select></div>
+    <div class="field"><label>Motif</label><select><option>Mission</option><option>Service</option><option>Entretien</option><option>Réparation</option></select></div>
+    <div class="field"><label>Date début</label><input type="date" /></div>
+    <div class="field"><label>Date fin</label><input type="date" /></div>
+  </div>
+  <button class="btn-add planif">+ Enregistrer la planification</button>
+
+  <table>
+    <thead><tr><th>Véhicule</th><th>Remplacement</th><th>Motif</th><th>Période</th><th>Statut</th></tr></thead>
+    <tbody>
+      <tr><td class="veh">1648TBP</td><td>0645TBV</td><td>Entretien</td><td>26/01 → 13/02</td><td><span class="badge badge-statut">En cours</span></td></tr>
+      <tr><td class="veh">5384TBP</td><td>—</td><td>Réparation</td><td>19/01 → 20/01</td><td><span class="badge badge-termine">Terminé</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="annotations">
+  <h3>Notes de conception</h3>
+  <ul>
+    <li>Onglet "Suivi Entretien" : champs alignés sur <code>INTERVENTION_SAV</code> (description_travaux, km_intervention — ajoutés le 23/07 après lecture du fichier Excel personnel du SO).</li>
+    <li>Onglet "Planification" : champs alignés sur <code>PLANIFICATION_VEHICULE</code> (id_vehicule_remplacement en auto-référence) — entité créée le 23/07, structure encore provisoire.</li>
+    <li>Les clients affichés (AGRIVET, AGRIVAL, AGRIFARM) reflètent le fait que ce SO gère principalement la flotte du groupe Inviso, pas la flotte commerciale externe.</li>
+    <li>Centralisation directe de l'objectif métier : ce fichier remplace un Excel personnel non partagé — point de douleur confirmé (perte totale d'historique au départ d'un ancien SO).</li>
+  </ul>
+</div>
+
+<footer>Wireframe — bascule entre les deux onglets en haut de l'écran.</footer>
+
+<script>
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    document.getElementById("panel-entretien").style.display = tab.dataset.tab === "entretien" ? "block" : "none";
+    document.getElementById("panel-planif").style.display = tab.dataset.tab === "planif" ? "block" : "none";
+  });
+});
+</script>
+
+</body>
+</html>

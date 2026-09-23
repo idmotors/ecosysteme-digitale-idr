@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wireframe — Tableau de bord Alertes GPS (connecté) — ID Rental</title>
+<style>
+  :root {
+    --bg-page: #F4F3EF;
+    --surface-1: #FFFFFF;
+    --surface-2: #FAFAF8;
+    --border: #E3E1D9;
+    --border-strong: #C9C6BA;
+    --text-primary: #1F2320;
+    --text-secondary: #5B5B54;
+    --text-muted: #8B897F;
+    --accent: #B33A3A;
+    --accent-bg: #FBE4E4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    padding: 2rem;
+  }
+  .page-header { max-width: 1100px; margin: 0 auto 1.5rem; }
+  .page-header .eyebrow {
+    font-size: 12.5px; color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .page-header h1 { font-size: 22px; font-weight: 600; margin: 0 0 8px; }
+  .page-header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+  .connected-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; color: #1D9E75; background: #E1F5EE;
+    padding: 3px 10px; border-radius: 999px; margin-top: 10px;
+  }
+  .connected-dot { width: 6px; height: 6px; border-radius: 50%; background: #1D9E75; }
+
+  .panel {
+    max-width: 1100px; margin: 0 auto;
+    background: var(--surface-1); border: 0.5px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+  }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.25rem; flex-wrap: wrap; gap: 12px;
+  }
+  .panel-header h2 { font-size: 17px; font-weight: 600; margin: 0; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    font-size: 12.5px; padding: 5px 12px; border-radius: 999px;
+    border: 0.5px solid var(--border-strong); background: var(--surface-2);
+    color: var(--text-secondary); cursor: pointer;
+  }
+  .chip.active { background: var(--text-primary); color: white; border-color: var(--text-primary); }
+
+  .stats-row { display: flex; gap: 12px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .stat-card {
+    flex: 1; min-width: 120px; background: var(--surface-2);
+    border: 0.5px solid var(--border); border-radius: 10px; padding: 12px 14px;
+  }
+  .stat-card .num { font-size: 22px; font-weight: 700; }
+  .stat-card .label { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  thead th {
+    text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.03em;
+    color: var(--text-muted); padding: 8px 10px; border-bottom: 1px solid var(--border-strong);
+  }
+  tbody td { padding: 9px 10px; border-bottom: 0.5px solid var(--border); vertical-align: middle; }
+  tbody tr:hover { background: var(--surface-2); }
+
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; }
+  .badge-exces { background: #FBE4E4; color: #B33A3A; }
+  .badge-deviation { background: #FCF3D9; color: #B8860B; }
+  .badge-arret { background: #E9E5F7; color: #5C4A99; }
+
+  .grav { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 6px; }
+  .grav-Critique { background: #A32D2D; color: white; }
+  .grav-Elevee { background: #FBE4E4; color: #B33A3A; }
+  .grav-Moderee { background: #FCF3D9; color: #BA7517; }
+  .grav-Faible { background: #E1F5EE; color: #1D9E75; }
+
+  .team-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; }
+  .team-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .justif { font-size: 11.5px; color: var(--text-muted); max-width: 220px; display: block; }
+
+  select.status-select {
+    font-size: 12px; padding: 4px 8px; border-radius: 6px;
+    border: 0.5px solid var(--border-strong); background: var(--surface-2); color: var(--text-primary);
+  }
+  select.status-select[data-status="Traité"] { background: #E1F5EE; color: #1D9E75; border-color: #1D9E75; }
+  select.status-select[data-status="En cours"] { background: #FAEEDA; color: #BA7517; border-color: #BA7517; }
+  select.status-select[data-status="Non traité"] { background: #FBE4E4; color: #B33A3A; border-color: #B33A3A; }
+
+  .veh { font-weight: 600; }
+  .time { color: var(--text-muted); font-size: 11.5px; }
+
+  .annotations {
+    max-width: 1100px; margin: 1.5rem auto 0;
+    background: var(--surface-1); border: 0.5px solid var(--border); border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+  }
+  .annotations h3 { font-size: 15px; font-weight: 600; margin: 0 0 10px; }
+  .annotations ul { margin: 0; padding-left: 20px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; }
+  .annotations code { background: var(--accent-bg); color: var(--accent); padding: 1px 6px; border-radius: 4px; font-size: 12.5px; }
+  footer { max-width: 1100px; margin: 1.5rem auto 0; font-size: 12px; color: var(--text-muted); text-align: center; }
+</style>
+<script async src="https://bolt.new/badge.js?s=53ca3d57-715d-4dd2-85d0-425a2ae1aa2b"></script></head>
+<body>
+
+<div class="page-header">
+  <div class="eyebrow">ID Rental — Stage Transformation Digitale</div>
+  <h1>Wireframe — Tableau de bord Alertes GPS</h1>
+  <p>Remplace le suivi téléphonique manuel de SE GPS par une file d'alertes routées et priorisées automatiquement.</p>
+  <div class="connected-tag"><span class="connected-dot"></span>Connecté au moteur de routage et de gravité (logique identique au PoC Python)</div>
+</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <h2>Alertes récentes — triées par gravité</h2>
+    <div class="filters">
+      <span class="chip active" data-filter="all">Toutes</span>
+      <span class="chip" data-filter="Excès de vitesse">Excès de vitesse</span>
+      <span class="chip" data-filter="Déviation itinéraire">Déviation itinéraire</span>
+      <span class="chip" data-filter="Arrêt suspect">Arrêt suspect</span>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="num" id="stat-total">0</div><div class="label">Alertes affichées</div></div>
+    <div class="stat-card"><div class="num" style="color:#A32D2D" id="stat-critique">0</div><div class="label">Critiques</div></div>
+    <div class="stat-card"><div class="num" style="color:#B33A3A" id="stat-elevee">0</div><div class="label">Élevées</div></div>
+    <div class="stat-card"><div class="num" style="color:#1D9E75" id="stat-traite">0</div><div class="label">Traitées</div></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Véhicule</th>
+        <th>Horodatage</th>
+        <th>Gravité</th>
+        <th>Justification (auto)</th>
+        <th>Équipe</th>
+        <th>Statut</th>
+        <th>Commentaire</th>
+      </tr>
+    </thead>
+    <tbody id="alert-table-body"></tbody>
+  </table>
+</div>
+
+<div class="annotations">
+  <h3>Notes de conception — wireframe connecté</h3>
+  <ul>
+    <li>La colonne <strong>Gravité</strong> et la <strong>Justification</strong> ne sont plus codées en dur : elles sont calculées en direct par la même logique que <code>routage_alertes_gps.py</code> (récurrence du même type d'alerte sur 24h pour le même véhicule, horaire de nuit pour les arrêts suspects).</li>
+    <li>Le tri par gravité (Critique → Élevée → Modérée → Faible) reproduit exactement l'ordre de sortie du script Python.</li>
+    <li>L'équipe reste déterminée par <code>type_alerte</code> (Excès de vitesse → QHSE, Déviation → RO, Arrêt suspect → SO), comme dans la v1 du wireframe.</li>
+    <li>Dans une implémentation réelle, ce JavaScript serait remplacé par un appel API vers le même moteur que le PoC Python — la logique métier ne change pas, seul le langage d'exécution diffère.</li>
+  </ul>
+</div>
+
+<footer>Wireframe cliquable — change le statut d'une alerte via le menu déroulant.</footer>
+
+<script>
+// ---- Moteur de routage + gravité (port JS du PoC Python routage_alertes_gps.py) ----
+const ROUTAGE = {
+  "Excès de vitesse": { team: "QHSE", color: "#B33A3A", badge: "badge-exces" },
+  "Déviation itinéraire": { team: "RO", color: "#B8860B", badge: "badge-deviation" },
+  "Arrêt suspect": { team: "SO", color: "#5C4A99", badge: "badge-arret" },
+};
+
+function compterAlertesRecentes(vehicule, type, dt, historique, fenetreHeures = 24) {
+  const seuil = new Date(dt.getTime() - fenetreHeures * 3600 * 1000);
+  return historique.filter(a =>
+    a.vehicule === vehicule && a.type === type && a.dt >= seuil && a.dt < dt
+  ).length;
+}
+
+function evaluerGravite(alerte, historique) {
+  const recurrence = compterAlertesRecentes(alerte.vehicule, alerte.type, alerte.dt, historique);
+
+  if (alerte.type === "Excès de vitesse") {
+    if (recurrence >= 2) return { grav: "Critique", justif: `${recurrence + 1}e excès de vitesse en 24h pour ce véhicule — comportement récurrent` };
+    if (recurrence === 1) return { grav: "Elevee", justif: "2e excès de vitesse en 24h pour ce véhicule" };
+    return { grav: "Moderee", justif: "Excès de vitesse isolé" };
+  }
+  if (alerte.type === "Déviation itinéraire") {
+    if (recurrence >= 1) return { grav: "Elevee", justif: "Déviation d'itinéraire répétée pour ce véhicule" };
+    return { grav: "Faible", justif: "Déviation isolée — souvent un simple contournement de trafic" };
+  }
+  if (alerte.type === "Arrêt suspect") {
+    const h = alerte.dt.getHours();
+    if (h >= 22 || h < 5) return { grav: "Elevee", justif: "Arrêt suspect en horaire de nuit — risque accru" };
+    return { grav: "Moderee", justif: "Arrêt suspect en horaire normal" };
+  }
+  return { grav: "Faible", justif: "Cas non prévu par les règles actuelles" };
+}
+
+// ---- Données d'exemple (mêmes véhicules/horaires que le PoC Python) ----
+const historique = [
+  { vehicule: "3456-TBA", type: "Excès de vitesse", dt: new Date(2026, 6, 22, 8, 10) },
+  { vehicule: "3456-TBA", type: "Excès de vitesse", dt: new Date(2026, 6, 22, 11, 45) },
+  { vehicule: "7788-TAB", type: "Déviation itinéraire", dt: new Date(2026, 6, 21, 16, 40) },
+];
+
+const alerts = [
+  { id: "ALT-004", vehicule: "3456-TBA", type: "Excès de vitesse", dt: new Date(2026, 6, 22, 14, 32), status: "Non traité" },
+  { id: "ALT-005", vehicule: "7788-TAB", type: "Déviation itinéraire", dt: new Date(2026, 6, 22, 9, 5), status: "En cours" },
+  { id: "ALT-006", vehicule: "1122-TCA", type: "Arrêt suspect", dt: new Date(2026, 6, 22, 23, 47), status: "Non traité" },
+  { id: "ALT-007", vehicule: "9900-TDA", type: "Excès de vitesse", dt: new Date(2026, 6, 22, 18, 12), status: "Traité" },
+  { id: "ALT-008", vehicule: "5719-TBN", type: "Arrêt suspect", dt: new Date(2026, 6, 22, 13, 15), status: "Traité" },
+];
+
+const GRAV_ORDER = { Critique: 0, Elevee: 1, Moderee: 2, Faible: 3 };
+const GRAV_LABEL = { Critique: "Critique", Elevee: "Élevée", Moderee: "Modérée", Faible: "Faible" };
+
+function fmtTime(d) {
+  const jj = String(d.getDate()).padStart(2, "0");
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mn = String(d.getMinutes()).padStart(2, "0");
+  return `${jj}/${mm} ${hh}:${mn}`;
+}
+
+let currentFilter = "all";
+const tbody = document.getElementById("alert-table-body");
+
+function render() {
+  const enriched = alerts
+    .filter(a => currentFilter === "all" || a.type === currentFilter)
+    .map(a => ({ ...a, ...evaluerGravite(a, historique) }))
+    .sort((a, b) => GRAV_ORDER[a.grav] - GRAV_ORDER[b.grav]);
+
+  tbody.innerHTML = "";
+  enriched.forEach((a) => {
+    const info = ROUTAGE[a.type];
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><span class="badge ${info.badge}">${a.type}</span></td>
+      <td class="veh">${a.vehicule}</td>
+      <td class="time">${fmtTime(a.dt)}</td>
+      <td><span class="grav grav-${a.grav}">${GRAV_LABEL[a.grav]}</span></td>
+      <td><span class="justif">${a.justif}</span></td>
+      <td><span class="team-tag"><span class="team-dot" style="background:${info.color}"></span>${info.team}</span></td>
+      <td>
+        <select class="status-select" data-status="${a.status}" data-id="${a.id}">
+          <option ${a.status === "Non traité" ? "selected" : ""}>Non traité</option>
+          <option ${a.status === "En cours" ? "selected" : ""}>En cours</option>
+          <option ${a.status === "Traité" ? "selected" : ""}>Traité</option>
+        </select>
+      </td>
+      <td>
+        <input type="text" class="commentaire-input" data-id="${a.id}" value="${a.commentaire || ""}" placeholder="Note de suivi..." style="width:130px; font-size:12px; padding:5px 8px; border-radius:6px; border:0.5px solid var(--border-strong); background:var(--surface-2); color:var(--text-primary);" />
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  tbody.querySelectorAll("select.status-select").forEach(sel => {
+    sel.addEventListener("change", (e) => {
+      const alerte = alerts.find(a => a.id === e.target.dataset.id);
+      alerte.status = e.target.value;
+      render();
+    });
+  });
+
+  tbody.querySelectorAll("input.commentaire-input").forEach(inp => {
+    inp.addEventListener("input", (e) => {
+      const alerte = alerts.find(a => a.id === e.target.dataset.id);
+      alerte.commentaire = e.target.value;
+    });
+  });
+
+  updateStats(enriched.length, enriched);
+}
+
+function updateStats(total, enriched) {
+  document.getElementById("stat-total").textContent = total;
+  document.getElementById("stat-critique").textContent = enriched.filter(a => a.grav === "Critique").length;
+  document.getElementById("stat-elevee").textContent = enriched.filter(a => a.grav === "Elevee").length;
+  document.getElementById("stat-traite").textContent = alerts.filter(a => a.status === "Traité").length;
+}
+
+document.querySelectorAll(".chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    currentFilter = chip.dataset.filter;
+    render();
+  });
+});
+
+render();
+</script>
+
+</body>
+</html>

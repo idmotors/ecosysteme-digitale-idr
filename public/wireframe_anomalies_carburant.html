@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wireframe — Tableau de bord Anomalies Carburant — ID Rental</title>
+<style>
+  :root {
+    --bg-page: #F4F3EF; --surface-1: #FFFFFF; --surface-2: #FAFAF8;
+    --border: #E3E1D9; --border-strong: #C9C6BA;
+    --text-primary: #1F2320; --text-secondary: #5B5B54; --text-muted: #8B897F;
+    --accent: #B04A9E; --accent-bg: #FBE7F6;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg-page); color: var(--text-primary); padding: 2rem; }
+  .page-header { max-width: 1040px; margin: 0 auto 1.5rem; }
+  .page-header .eyebrow { font-size: 12.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .page-header h1 { font-size: 22px; font-weight: 600; margin: 0 0 8px; }
+  .page-header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+  .scope-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-bg); padding: 3px 10px; border-radius: 999px; margin-top: 10px; }
+
+  .panel { max-width: 1040px; margin: 1rem auto 0; background: var(--surface-1); border: 0.5px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+  .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 12px; }
+  .panel-header h2 { font-size: 17px; font-weight: 600; margin: 0; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { font-size: 12.5px; padding: 5px 12px; border-radius: 999px; border: 0.5px solid var(--border-strong); background: var(--surface-2); color: var(--text-secondary); cursor: pointer; }
+  .chip.active { background: var(--text-primary); color: white; border-color: var(--text-primary); }
+
+  .stats-row { display: flex; gap: 12px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .stat-card { flex: 1; min-width: 120px; background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+  .stat-card .num { font-size: 22px; font-weight: 700; }
+  .stat-card .label { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  thead th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); padding: 8px 10px; border-bottom: 1px solid var(--border-strong); }
+  tbody td { padding: 9px 10px; border-bottom: 0.5px solid var(--border); vertical-align: middle; }
+  tbody tr:hover { background: var(--surface-2); }
+
+  .grav { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 6px; }
+  .grav-Critique { background: #A32D2D; color: white; }
+  .grav-Suspect { background: #FBE4E4; color: #B33A3A; }
+  .grav-Surveiller { background: #FCF3D9; color: #BA7517; }
+  .grav-OK { background: #E1F5EE; color: #1D9E75; }
+
+  .justif { font-size: 11.5px; color: var(--text-muted); max-width: 260px; display: block; }
+  .veh { font-weight: 600; }
+  .time { color: var(--text-muted); font-size: 11.5px; }
+
+  select.status-select { font-size: 12px; padding: 4px 8px; border-radius: 6px; border: 0.5px solid var(--border-strong); background: var(--surface-2); color: var(--text-primary); }
+  select.status-select[data-status="Traité"] { background: #E1F5EE; color: #1D9E75; border-color: #1D9E75; }
+  select.status-select[data-status="En cours"] { background: #FAEEDA; color: #BA7517; border-color: #BA7517; }
+  select.status-select[data-status="Non traité"] { background: #FBE4E4; color: #B33A3A; border-color: #B33A3A; }
+
+  .annotations { max-width: 1040px; margin: 1.5rem auto 0; background: var(--surface-1); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; }
+  .annotations h3 { font-size: 15px; font-weight: 600; margin: 0 0 10px; }
+  .annotations ul { margin: 0; padding-left: 20px; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .annotations code { background: var(--accent-bg); color: var(--accent); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+  footer { max-width: 1040px; margin: 1.5rem auto 0; font-size: 12px; color: var(--text-muted); text-align: center; }
+</style>
+<script async src="https://bolt.new/badge.js?s=53ca3d57-715d-4dd2-85d0-425a2ae1aa2b"></script></head>
+<body>
+
+<div class="page-header">
+  <div class="eyebrow">ID Rental — Stage Transformation Digitale</div>
+  <h1>Wireframe — Tableau de bord Anomalies Carburant</h1>
+  <p>File des transactions carburant signalées par le moteur de détection (3 niveaux), pour investigation par SE Fuel.</p>
+  <div class="scope-tag">Mono-équipe — SE Fuel uniquement (pas de routage multi-équipe, contrairement aux Alertes GPS)</div>
+</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <h2>Transactions à examiner — triées par gravité</h2>
+    <div class="filters">
+      <span class="chip active" data-filter="all">Toutes</span>
+      <span class="chip" data-filter="Critique">Critique</span>
+      <span class="chip" data-filter="Suspect">Suspect</span>
+      <span class="chip" data-filter="Surveiller">À surveiller</span>
+      <span class="chip" data-filter="OK">OK</span>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="num" id="stat-total">0</div><div class="label">Transactions affichées</div></div>
+    <div class="stat-card"><div class="num" style="color:#A32D2D" id="stat-critique">0</div><div class="label">Critiques</div></div>
+    <div class="stat-card"><div class="num" style="color:#B33A3A" id="stat-suspect">0</div><div class="label">Suspectes</div></div>
+    <div class="stat-card"><div class="num" style="color:#1D9E75" id="stat-traite">0</div><div class="label">Traitées</div></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Véhicule</th>
+        <th>Horodatage</th>
+        <th>Déclaré / Réel</th>
+        <th>Gravité</th>
+        <th>Justification (auto)</th>
+        <th>Statut</th>
+      </tr>
+    </thead>
+    <tbody id="tx-table-body"></tbody>
+  </table>
+</div>
+
+<div class="annotations">
+  <h3>Notes de conception</h3>
+  <ul>
+    <li>Écran mono-audience (SE Fuel) : le rapport confirme que l'investigation immédiate d'une anomalie est menée par SE Fuel seul, sans routage vers d'autres équipes — contrairement aux Alertes GPS.</li>
+    <li>Gravité et justification calculées en direct par la même logique que <code>detection_anomalie_carburant.py</code> (3 niveaux : déclaré/réel, réel/barème, fond de cuve) — non stockées, recalculées à l'affichage.</li>
+    <li>Le changement de statut écrit <code>statut_validation</code>, <code>id_user_suivi</code> et <code>date_suivi</code> sur <code>TRANSACTION_CARBURANT</code> — champs ajoutés le 27/07 (schéma V14).</li>
+    <li>Un second écran, hors périmètre de ce wireframe, existe potentiellement : le rapport mensuel de consommation (destination OS, RO, Business Analyst) — fréquence et audience différentes, à concevoir séparément.</li>
+  </ul>
+</div>
+
+<footer>Wireframe cliquable — change le statut d'une transaction via le menu déroulant.</footer>
+
+<script>
+// ---- Moteur de détection (port JS du PoC Python detection_anomalie_carburant.py) ----
+function ecartPct(a, b) {
+  const base = Math.max(Math.abs(a), Math.abs(b), 1e-6);
+  return Math.abs(a - b) / base * 100;
+}
+
+function detecter(tx, baremes) {
+  let score = 0;
+  const justifs = [];
+
+  const ecart1 = ecartPct(tx.litrage_declare, tx.litrage_reel);
+  if (ecart1 > 20) { justifs.push(`Écart déclaré/réel de ${ecart1.toFixed(1)}%`); score += 45; }
+  else if (ecart1 > 8) { justifs.push(`Écart déclaré/réel léger (${ecart1.toFixed(1)}%)`); score += 15; }
+
+  const bareme = baremes[tx.trajet];
+  if (bareme) {
+    const ecart2 = ecartPct(tx.litrage_reel, bareme.litrage_reference);
+    if (ecart2 > bareme.tolerance_pct * 2) { justifs.push(`Surconsommation de ${ecart2.toFixed(1)}% vs barème`); score += 35; }
+    else if (ecart2 > bareme.tolerance_pct) { justifs.push(`Hors tolérance barème (${ecart2.toFixed(1)}%)`); score += 15; }
+  } else {
+    justifs.push("Aucun barème connu pour ce trajet"); score += 5;
+  }
+
+  if (tx.fond_de_cuve_attendu != null) {
+    const ecart3 = tx.fond_de_cuve_attendu - tx.fond_de_cuve;
+    if (ecart3 > 15) { justifs.push(`Fond de cuve inférieur de ${ecart3.toFixed(1)} L à l'attendu`); score += 25; }
+  }
+
+  score = Math.min(score, 100);
+  let grav = "OK";
+  if (score >= 60) grav = "Critique";
+  else if (score >= 35) grav = "Suspect";
+  else if (score >= 15) grav = "Surveiller";
+
+  return { grav, justif: justifs.length ? justifs.join(" ; ") : "Aucune alerte — transaction cohérente", score };
+}
+
+const baremes = {
+  "Antananarivo-Antsirabe": { litrage_reference: 45, tolerance_pct: 10 },
+  "Antananarivo-Toamasina": { litrage_reference: 120, tolerance_pct: 12 },
+};
+
+const transactions = [
+  { id: "TXN-001", vehicule: "3456-TBA", trajet: "Antananarivo-Antsirabe", dt: new Date(2026,6,27,8,12), litrage_declare: 46, litrage_reel: 45.5, fond_de_cuve: 38, fond_de_cuve_attendu: 40, status: "Traité" },
+  { id: "TXN-002", vehicule: "7788-TAB", trajet: "Antananarivo-Toamasina", dt: new Date(2026,6,27,9,3), litrage_declare: 150, litrage_reel: 118, fond_de_cuve: 42, fond_de_cuve_attendu: 45, status: "Non traité" },
+  { id: "TXN-004", vehicule: "3456-TBA", trajet: "Antananarivo-Antsirabe", dt: new Date(2026,6,28,7,50), litrage_declare: 44, litrage_reel: 44.2, fond_de_cuve: 12, fond_de_cuve_attendu: 35, status: "Non traité" },
+  { id: "TXN-005", vehicule: "9900-TDA", trajet: "Antananarivo-Toamasina", dt: new Date(2026,6,28,14,20), litrage_declare: 160, litrage_reel: 125, fond_de_cuve: 10, fond_de_cuve_attendu: 30, status: "En cours" },
+  { id: "TXN-006", vehicule: "5719-TBN", trajet: "Antananarivo-Fianarantsoa", dt: new Date(2026,6,28,6,30), litrage_declare: 95, litrage_reel: 93, fond_de_cuve: 28, fond_de_cuve_attendu: 30, status: "Traité" },
+];
+
+const GRAV_ORDER = { Critique: 0, Suspect: 1, Surveiller: 2, OK: 3 };
+let currentFilter = "all";
+const tbody = document.getElementById("tx-table-body");
+
+function fmtTime(d) {
+  const jj = String(d.getDate()).padStart(2, "0");
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mn = String(d.getMinutes()).padStart(2, "0");
+  return `${jj}/${mm} ${hh}:${mn}`;
+}
+
+function render() {
+  const enriched = transactions
+    .map(t => ({ ...t, ...detecter(t, baremes) }))
+    .filter(t => currentFilter === "all" || t.grav === currentFilter)
+    .sort((a, b) => GRAV_ORDER[a.grav] - GRAV_ORDER[b.grav]);
+
+  tbody.innerHTML = "";
+  enriched.forEach(t => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="veh">${t.vehicule}</td>
+      <td class="time">${fmtTime(t.dt)}</td>
+      <td>${t.litrage_declare} L / ${t.litrage_reel} L</td>
+      <td><span class="grav grav-${t.grav}">${t.grav === "OK" ? "OK" : t.grav}</span></td>
+      <td><span class="justif">${t.justif}</span></td>
+      <td>
+        <select class="status-select" data-status="${t.status}" data-id="${t.id}">
+          <option ${t.status === "Non traité" ? "selected" : ""}>Non traité</option>
+          <option ${t.status === "En cours" ? "selected" : ""}>En cours</option>
+          <option ${t.status === "Traité" ? "selected" : ""}>Traité</option>
+        </select>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  tbody.querySelectorAll("select.status-select").forEach(sel => {
+    sel.addEventListener("change", (e) => {
+      const t = transactions.find(x => x.id === e.target.dataset.id);
+      t.status = e.target.value;
+      render();
+    });
+  });
+
+  document.getElementById("stat-total").textContent = enriched.length;
+  document.getElementById("stat-critique").textContent = enriched.filter(t => t.grav === "Critique").length;
+  document.getElementById("stat-suspect").textContent = enriched.filter(t => t.grav === "Suspect").length;
+  document.getElementById("stat-traite").textContent = transactions.filter(t => t.status === "Traité").length;
+}
+
+document.querySelectorAll(".chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    currentFilter = chip.dataset.filter;
+    render();
+  });
+});
+
+render();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wireframe — Application terrain SE Fuel — ID Rental</title>
+<style>
+  :root {
+    --bg-page: #F4F3EF;
+    --surface-1: #FFFFFF;
+    --surface-2: #FAFAF8;
+    --border: #E3E1D9;
+    --border-strong: #C9C6BA;
+    --text-primary: #1F2320;
+    --text-secondary: #5B5B54;
+    --text-muted: #8B897F;
+    --accent: #0E7C7B;
+    --accent-light: #DFF5F4;
+    --success: #1D9E75;
+    --success-bg: #E1F5EE;
+    --warning: #BA7517;
+    --warning-bg: #FAEEDA;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    padding: 2.5rem 1rem;
+  }
+  .page-header {
+    max-width: 640px;
+    margin: 0 auto 2rem;
+  }
+  .page-header .eyebrow {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .page-header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+  .page-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .phone-frame {
+    width: 360px;
+    margin: 0 auto;
+    background: var(--surface-2);
+    border-radius: 28px;
+    padding: 10px;
+    border: 0.5px solid var(--border-strong);
+  }
+  .phone-screen {
+    background: var(--surface-1);
+    border-radius: 20px;
+    padding: 1.25rem 1.1rem 1.5rem;
+    border: 0.5px solid var(--border);
+  }
+  .app-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+  .app-label i { font-size: 20px; color: var(--accent); }
+  .app-label span { font-size: 13px; color: var(--text-muted); }
+  h2.form-title {
+    font-size: 19px;
+    font-weight: 600;
+    margin: 2px 0 1.25rem;
+  }
+  .field { margin-bottom: 12px; }
+  .field label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 4px;
+  }
+  select, input[type="number"] {
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface-2);
+    padding: 0 10px;
+    font-size: 14px;
+    color: var(--text-primary);
+  }
+  .photo-section {
+    border-top: 0.5px solid var(--border);
+    padding-top: 14px;
+    margin: 1.5rem 0 1.25rem;
+  }
+  .photo-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .photo-section-header span.label { font-size: 14px; font-weight: 600; }
+  #photo-counter {
+    font-size: 13px;
+    padding: 2px 10px;
+    border-radius: 8px;
+    background: var(--warning-bg);
+    color: var(--warning);
+  }
+  #photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .photo-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 74px;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 4px;
+    background: var(--surface-2);
+    border: 0.5px dashed var(--border-strong);
+  }
+  .photo-box.filled {
+    background: var(--success-bg);
+    border: 0.5px solid var(--success);
+  }
+  .photo-box i { font-size: 20px; color: var(--text-muted); }
+  .photo-box.filled i { color: var(--success); }
+  .photo-box span {
+    font-size: 10.5px;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .photo-box.filled span { color: var(--success); }
+  button#btn-valider {
+    width: 100%;
+    height: 42px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    background: #E3E1D9;
+    color: var(--text-muted);
+    cursor: not-allowed;
+  }
+  button#btn-valider.active {
+    background: var(--accent);
+    color: white;
+    cursor: pointer;
+  }
+  #helper-text {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 8px;
+  }
+  .annotations {
+    max-width: 640px;
+    margin: 2rem auto 0;
+    background: var(--surface-1);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+  }
+  .annotations h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+  .annotations ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .annotations code {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+  footer {
+    max-width: 640px;
+    margin: 1.5rem auto 0;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+</style>
+<script async src="https://bolt.new/badge.js?s=53ca3d57-715d-4dd2-85d0-425a2ae1aa2b"></script></head>
+<body>
+
+<div class="page-header">
+  <div class="eyebrow">ID Rental — Stage Transformation Digitale</div>
+  <h1>Wireframe — Application terrain SE Fuel</h1>
+  <p>Remplace la saisie WhatsApp actuelle par un formulaire structuré, avec module photo bloquant (5 preuves obligatoires) avant toute validation et synchronisation vers <code>TRANSACTION_CARBURANT</code>.</p>
+</div>
+
+<div class="phone-frame">
+  <div class="phone-screen">
+
+    <div class="app-label">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0E7C7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 22h12"/><path d="M4 9h9v13H4z"/><path d="M13 7l3-3"/><path d="M18 3l3 3-3 3"/><path d="M16 9v5a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9"/></svg>
+      <span>SE Fuel — Saisie terrain</span>
+    </div>
+    <h2 class="form-title">Nouveau ravitaillement</h2>
+
+    <div class="field">
+      <label for="f-vehicule">Véhicule</label>
+      <select id="f-vehicule">
+        <option value="">Sélectionner un véhicule</option>
+        <option>3456-TBA</option>
+        <option>7788-TAB</option>
+        <option>1122-TCA</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="f-client">Client</label>
+      <select id="f-client">
+        <option value="">Sélectionner un client</option>
+        <option>STAR</option>
+        <option>COLAS</option>
+        <option>VITOGAZ</option>
+        <option>ATS</option>
+        <option>GROUPE</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="f-fournisseur">Fournisseur</label>
+      <select id="f-fournisseur">
+        <option value="">Sélectionner un fournisseur</option>
+        <option>Galana</option>
+        <option>Jovena</option>
+        <option>Total</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="f-litrage">Litrage déclaré (L)</label>
+      <input type="number" id="f-litrage" placeholder="45" />
+    </div>
+    <div class="field">
+      <label for="f-fond-cuve">Fond de cuve mesuré (L)</label>
+      <input type="number" id="f-fond-cuve" placeholder="38" />
+    </div>
+
+    <div class="photo-section">
+      <div class="photo-section-header">
+        <span class="label">Preuves photo</span>
+        <span id="photo-counter">0/5</span>
+      </div>
+      <div id="photo-grid"></div>
+    </div>
+
+    <button id="btn-valider" disabled>Valider (0/5 photos)</button>
+    <p id="helper-text">Les 5 photos sont obligatoires avant validation</p>
+
+  </div>
+</div>
+
+<div class="annotations">
+  <h3>Notes de conception</h3>
+  <ul>
+    <li>Les 3 menus déroulants (Véhicule / Client / Fournisseur) remplacent la saisie libre WhatsApp — objectif : éliminer les erreurs de frappe et les champs non structurés.</li>
+    <li>Le bouton <code>Valider</code> reste bloqué (Hard Block) tant que les 5 photos ne sont pas fournies — traduit directement la couche "Garde-fous" de l'architecture cible.</li>
+    <li>À la validation, les données sont synchronisées directement dans <code>TRANSACTION_CARBURANT</code> (schéma EA V8), sans étape de ressaisie manuelle côté bureau.</li>
+    <li>Cliquer sur une case photo bascule son état (démonstration) — dans la version finale, chaque case ouvrirait l'appareil photo du téléphone.</li>
+  </ul>
+</div>
+
+<footer>Wireframe cliquable — cliquer sur les cases photo pour tester le comportement du bouton Valider.</footer>
+
+<script>
+const CAMERA_SVG = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h1.5l1-1.5h9l1 1.5H19a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></svg>';
+const CHECK_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>';
+
+const photos = ["Immatriculation", "Cadran pompe", "Ticket", "BL", "Réservoir"];
+const grid = document.getElementById("photo-grid");
+const state = photos.map(() => false);
+
+function render() {
+  grid.innerHTML = "";
+  photos.forEach((label, i) => {
+    const filled = state[i];
+    const box = document.createElement("button");
+    box.type = "button";
+    box.className = "photo-box" + (filled ? " filled" : "");
+    box.setAttribute("aria-label", (filled ? "Retirer " : "Ajouter ") + label);
+    box.innerHTML =
+      '<span style="display:flex;color:' + (filled ? "#1D9E75" : "#8B897F") + '">' + (filled ? CHECK_SVG : CAMERA_SVG) + "</span>" +
+      "<span>" + label + "</span>";
+    box.onclick = () => { state[i] = !state[i]; render(); };
+    grid.appendChild(box);
+  });
+
+  const count = state.filter(Boolean).length;
+  const counter = document.getElementById("photo-counter");
+  counter.textContent = count + "/5";
+  counter.style.color = count === 5 ? "#1D9E75" : "#BA7517";
+  counter.style.background = count === 5 ? "#E1F5EE" : "#FAEEDA";
+
+  const btn = document.getElementById("btn-valider");
+  const helper = document.getElementById("helper-text");
+  if (count === 5) {
+    btn.disabled = false;
+    btn.className = "active";
+    btn.textContent = "Valider et synchroniser";
+    helper.textContent = "Synchronisation directe vers TRANSACTION_CARBURANT";
+    helper.style.color = "#1D9E75";
+  } else {
+    btn.disabled = true;
+    btn.className = "";
+    btn.textContent = "Valider (" + count + "/5 photos)";
+    helper.textContent = "Les 5 photos sont obligatoires avant validation";
+    helper.style.color = "#8B897F";
+  }
+}
+render();
+</script>
+
+</body>
+</html>

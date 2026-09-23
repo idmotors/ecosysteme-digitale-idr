@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wireframe — Atelier Garage Rapide IDR — ID Rental</title>
+<style>
+  :root {
+    --bg-page: #F4F3EF; --surface-1: #FFFFFF; --surface-2: #FAFAF8;
+    --border: #E3E1D9; --border-strong: #C9C6BA;
+    --text-primary: #1F2320; --text-secondary: #5B5B54; --text-muted: #8B897F;
+    --accent: #993C1D; --accent-bg: #FAECE7;
+    --success: #1D9E75; --success-bg: #E1F5EE;
+    --warning: #BA7517; --warning-bg: #FAEEDA;
+    --danger: #B33A3A; --danger-bg: #FBE4E4;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg-page); color: var(--text-primary); padding: 2rem; }
+  .page-header { max-width: 980px; margin: 0 auto 1.5rem; }
+  .page-header .eyebrow { font-size: 12.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .page-header h1 { font-size: 22px; font-weight: 600; margin: 0 0 8px; }
+  .page-header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+  .tabs { display: flex; gap: 8px; max-width: 980px; margin: 1rem auto 0; flex-wrap: wrap; }
+  .tab { font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--surface-1); color: var(--text-secondary); cursor: pointer; }
+  .tab.active { background: var(--text-primary); color: white; border-color: var(--text-primary); }
+
+  .panel { max-width: 980px; margin: 1rem auto 0; background: var(--surface-1); border: 0.5px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+  .panel h2 { font-size: 17px; font-weight: 600; margin: 0 0 4px; }
+  .panel .sub { font-size: 12.5px; color: var(--text-muted); margin-bottom: 1.25rem; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 1rem; }
+  .field label { font-size: 13px; color: var(--text-secondary); display: block; margin-bottom: 4px; }
+  select, input[type="number"], input[type="text"], input[type="date"], textarea {
+    width: 100%; border-radius: 8px; border: 0.5px solid var(--border-strong); background: var(--surface-2);
+    padding: 8px 10px; font-size: 14px; color: var(--text-primary); font-family: inherit;
+  }
+  select, input { height: 38px; }
+  textarea { height: 55px; resize: vertical; }
+
+  button.btn-add { height: 40px; padding: 0 18px; border-radius: 8px; border: none; background: var(--accent); color: white; font-weight: 600; font-size: 13.5px; cursor: pointer; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 1.25rem; }
+  thead th { text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); padding: 8px 8px; border-bottom: 1px solid var(--border-strong); }
+  tbody td { padding: 8px; border-bottom: 0.5px solid var(--border); vertical-align: top; }
+  .veh { font-weight: 600; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 6px; }
+  .badge-technique { background: var(--accent-bg); color: var(--accent); }
+  .badge-idmotors { background: #DDF0FA; color: #0B6E99; }
+  .badge-externe { background: #F1EFE8; color: #5F5E5A; }
+  .badge-stock { background: var(--warning-bg); color: var(--warning); }
+  .badge-monte { background: var(--success-bg); color: var(--success); }
+  .badge-jete { background: var(--danger-bg); color: var(--danger); }
+  .badge-vendu { background: #E9E5F7; color: #5C4A99; }
+  .badge-ok { background: var(--success-bg); color: var(--success); }
+  .badge-rupture { background: var(--danger-bg); color: var(--danger); }
+
+  .pieces-liees { background: var(--surface-2); border: 1px dashed var(--border-strong); border-radius: 8px; padding: 10px 12px; margin-bottom: 1rem; }
+  .pieces-liees-header { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; font-weight: 600; margin-bottom: 8px; }
+  .piece-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-1); border: 1px solid var(--border-strong); border-radius: 999px; padding: 4px 10px; font-size: 11.5px; margin: 3px 4px 3px 0; }
+  .piece-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+  button.btn-link { font-size: 11.5px; padding: 4px 10px; border-radius: 999px; border: 1px dashed var(--border-strong); background: var(--surface-1); color: var(--text-muted); cursor: pointer; }
+
+  .checklist-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+  .checklist-item { display: flex; align-items: center; gap: 8px; font-size: 12.5px; padding: 6px 8px; background: var(--surface-2); border-radius: 6px; }
+  .checklist-item input { width: 16px; height: 16px; }
+
+  .annotations { max-width: 980px; margin: 1.5rem auto 0; background: var(--surface-1); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; }
+  .annotations h3 { font-size: 15px; font-weight: 600; margin: 0 0 10px; }
+  .annotations ul { margin: 0; padding-left: 20px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; }
+  .annotations code { background: var(--accent-bg); color: var(--accent); padding: 1px 6px; border-radius: 4px; font-size: 11.5px; }
+  footer { max-width: 980px; margin: 1.5rem auto 0; font-size: 12px; color: var(--text-muted); text-align: center; }
+</style>
+<script async src="https://bolt.new/badge.js?s=53ca3d57-715d-4dd2-85d0-425a2ae1aa2b"></script></head>
+<body>
+
+<div class="page-header">
+  <div class="eyebrow">ID Rental — Stage Transformation Digitale</div>
+  <h1>Wireframe — Atelier Garage Rapide IDR (Équipe Technique)</h1>
+  <p>Remplace les fichiers Excel de stock/pneus et la fiche de passation papier par un suivi centralisé, avec traçabilité pièce ↔ intervention.</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" data-tab="intervention">Intervention &amp; Pièces</div>
+  <div class="tab" data-tab="stock">Stock Pièces</div>
+  <div class="tab" data-tab="pneus">Suivi Pneus</div>
+  <div class="tab" data-tab="passation">Fiche de Passation</div>
+  <div class="tab" data-tab="commandes">Suivi Commandes</div>
+</div>
+
+<div style="max-width:980px; margin:12px auto 0; display:flex; align-items:center; gap:10px; background:#FFF8E8; border:1px solid #F0DFA8; border-radius:10px; padding:10px 14px;">
+  <span style="font-size:12.5px; color:var(--text-secondary); font-weight:600;">🔑 Se connecter en tant que :</span>
+  <select id="role-select" style="width:auto; height:32px; font-size:12.5px;">
+    <option value="technique">Personnel Technique</option>
+    <option value="dt">Directeur Technique</option>
+  </select>
+  <span id="role-note" style="font-size:11.5px; color:var(--text-muted);"></span>
+</div>
+
+<div class="panel" id="panel-intervention">
+  <h2>Nouvelle intervention</h2>
+  <div class="sub">L'origine distingue désormais Équipe Technique et ID Motors — deux acteurs aux règles de facturation opposées, confondus auparavant sous "Interne"</div>
+
+  <div class="field" style="margin-bottom:1rem;">
+    <label>Fiche de passation associée (optionnel)</label>
+    <select>
+      <option value="">Aucune — intervention sans fiche liée</option>
+      <option>Fiche #F-0312 — 0940BU — Départ 05/08 09:10 → Retour 06/08 09:10 — "Bip de recul défaillant au retour"</option>
+      <option>Fiche #F-0298 — 1648TBP — Départ 04/08 14:20 → Retour 04/08 18:00 — "Fuite gasoil suspectée"</option>
+    </select>
+  </div>
+
+  <div class="grid-3">
+    <div class="field"><label>Véhicule</label><select><option>Sélectionner</option><option>1648TBP</option><option>0645TBV</option></select></div>
+    <div class="field"><label>Type</label><select><option>Préventif</option><option>Curatif</option></select></div>
+    <div class="field" id="origine-field">
+      <label>Origine</label>
+      <select id="origine-select">
+        <option value="technique">Équipe Technique (interne, non facturé)</option>
+        <option value="idmotors">ID Motors (interne, facturé)</option>
+        <option value="externe">Externe</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid-3" id="dates-montant-block">
+    <div class="field"><label>Date d'entrée</label><input type="date" /></div>
+    <div class="field"><label>Date de sortie</label><input type="date" /></div>
+    <div class="field"><label>Montant</label><input type="number" placeholder="Ar" /></div>
+  </div>
+  <div class="field" id="description-block" style="margin-bottom:1rem;">
+    <label id="description-label">Description des travaux</label>
+    <textarea id="description-textarea" placeholder="Ex : vérification éclairage, graissage, remplacement feux..."></textarea>
+  </div>
+
+  <div class="pieces-liees" id="pieces-block">
+    <div class="pieces-liees-header">
+      <span>🔧 Pièces et pneus liés à cette intervention</span>
+      <span>
+        <button class="btn-link">+ Lier une pièce du stock</button>
+        <button class="btn-link">+ Lier un pneu</button>
+      </span>
+    </div>
+    <span class="piece-tag"><span class="dot"></span>Filtre huile H7 JX1013 ×1</span>
+    <span class="piece-tag"><span class="dot"></span>Bip de recule 24V ×1</span>
+    <span class="piece-tag"><span class="dot" style="background:#1E7A5F;"></span>Pneu 33480 — 385/65R22,5 (monté)</span>
+  </div>
+  <p id="pieces-note" style="font-size:11.5px; color:var(--text-muted); margin-top:-6px; margin-bottom:1rem;">Chaque pièce liée est décomptée automatiquement du stock (onglet Stock Pièces) et reste tracée : on sait désormais qu'elle a bien été affectée à cette intervention, pas seulement commandée.</p>
+
+  <div id="dt-transfer-note" style="display:none; background:#FFF8E8; border:1px dashed #F0DFA8; border-radius:8px; padding:12px 14px; margin-bottom:1rem; font-size:12.5px; color:var(--text-secondary);">
+    ℹ️ Cette intervention part vers l'extérieur — vous n'avez rien d'autre à saisir ici. La commande réelle, le suivi du document (devis/facture) et la transmission aux opérationnels sont pris en charge par l'Assistante Technique, dans l'onglet <strong>Suivi Commandes</strong>.
+  </div>
+
+  <button class="btn-add" id="btn-intervention">+ Enregistrer l'intervention</button>
+
+  <table>
+    <thead><tr><th>Véhicule</th><th>Origine</th><th>Travaux</th><th>Pièces liées</th><th>Entrée → Sortie</th></tr></thead>
+    <tbody>
+      <tr><td class="veh">1648TBP</td><td><span class="badge badge-technique">Équipe Technique</span></td><td>Vérification éclairage, remplacement feux</td><td>2 pièces</td><td>26/01 → 26/01</td></tr>
+      <tr><td class="veh">5384TBP</td><td><span class="badge badge-idmotors">ID Motors</span></td><td>Remplacement pompe à main gasoil</td><td>1 pièce</td><td>19/01 → 20/01</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel" id="panel-stock" style="display:none;">
+  <h2>Stock de pièces</h2>
+  <div class="sub">Reprend les colonnes du fichier Excel "SUIVI STOCK IDR GARAGE" (Famille, Référence, Désignation, Dépôt)</div>
+
+  <div class="grid-3">
+    <div class="field"><label>Famille</label><select><option>Toutes</option><option>Filtres</option><option>Accessoires</option><option>Éclairages</option><option>Consommables</option></select></div>
+    <div class="field"><label>Référence</label><input type="text" placeholder="Ex : PDR_AUT_0205" /></div>
+    <div class="field"><label>Client associé (optionnel)</label><select><option>Aucun</option><option>Vitogaz</option><option>STAR</option></select></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Référence</th><th>Désignation</th><th>Famille</th><th>Stock</th><th>Seuil</th><th>Statut</th></tr></thead>
+    <tbody>
+      <tr><td>PDR_AUT_0205</td><td>Filtre huile H7 JX1013</td><td>Filtres</td><td>12</td><td>5</td><td><span class="badge badge-ok">OK</span></td></tr>
+      <tr><td>PDR_AUT_2776</td><td>Bip de recule 24V standard</td><td>Accessoires</td><td>3</td><td>5</td><td><span class="badge badge-rupture">Rupture proche</span></td></tr>
+      <tr><td>CON_AUT_0018</td><td>Ampoules H3 24V</td><td>Éclairages</td><td>28</td><td>10</td><td><span class="badge badge-ok">OK</span></td></tr>
+      <tr><td>PDR_AUT_2981</td><td>Filtre air KL - Vitogaz</td><td>Filtres</td><td>7</td><td>4</td><td><span class="badge badge-ok">OK</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel" id="panel-pneus" style="display:none;">
+  <h2>Suivi des pneus</h2>
+  <div class="sub">Traçabilité unitaire par marquage IDR — reprend le fichier "SUIVI DES PNEUS_STOCK IDR" (~50 pneus commandés par mois)</div>
+
+  <div class="grid-3">
+    <div class="field"><label>Marquage IDR</label><input type="text" placeholder="Ex : 33415" /></div>
+    <div class="field"><label>Véhicule</label><select><option>Aucun (en stock)</option><option>0822TCA</option><option>8331TBR</option></select></div>
+    <div class="field"><label>Emplacement sur véhicule</label><select><option>—</option><option>1ED</option><option>2ED</option><option>3ED</option><option>1EG</option><option>2EG</option><option>3EG</option><option>Secours</option></select></div>
+  </div>
+  <div class="grid-3">
+    <div class="field"><label>Dimension</label><input type="text" placeholder="Ex : 385/65R22,5" /></div>
+    <div class="field"><label>Km au montage</label><input type="number" /></div>
+    <div class="field">
+      <label>Statut</label>
+      <select>
+        <option>En stock</option>
+        <option>Monté</option>
+        <option>Hors service — jeté</option>
+        <option>Hors service — vendu</option>
+      </select>
+    </div>
+  </div>
+  <button class="btn-add">+ Enregistrer le pneu</button>
+
+  <table>
+    <thead><tr><th>Marquage</th><th>Dimension</th><th>Véhicule</th><th>Emplacement</th><th>Km montage</th><th>Statut</th></tr></thead>
+    <tbody>
+      <tr><td class="veh">33415</td><td>385/65R22,5</td><td>0822TCA</td><td>3ED</td><td>128 270</td><td><span class="badge badge-monte">Monté</span></td></tr>
+      <tr><td class="veh">33427</td><td>385/65R22,5</td><td>8331TBR</td><td>2ED</td><td>28 823</td><td><span class="badge badge-monte">Monté</span></td></tr>
+      <tr><td class="veh">33480</td><td>385/65R22,5</td><td>—</td><td>Secours</td><td>127 332</td><td><span class="badge badge-stock">En stock</span></td></tr>
+      <tr><td class="veh">32619</td><td>385/65R22,5</td><td>—</td><td>—</td><td>—</td><td><span class="badge badge-jete">Jeté</span></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11.5px; color:var(--text-muted); margin-top:10px;">Le statut "Hors service" (jeté/vendu) répond directement au point signalé par l'équipe : aujourd'hui, aucune trace de ce que deviennent les pneus usés.</p>
+</div>
+
+<div class="panel" id="panel-passation" style="display:none;">
+  <h2>Fiche de passation</h2>
+  <div class="sub">Une seule fiche par mission — colonnes Départ/Retour côte à côte, comme sur le document papier source. L'essentiel structuré, le détail complet reste sur le scan joint.</div>
+
+  <div class="grid-3">
+    <div class="field"><label>Véhicule</label><select><option>Sélectionner</option><option>0940BU</option></select></div>
+    <div class="field"><label>Chauffeur</label><select><option>Sélectionner</option><option>Rakoto J.</option></select></div>
+    <div class="field"><label>Objet / Mission</label><input type="text" placeholder="Ex : COLAS → Garage" /></div>
+  </div>
+
+  <table style="margin-top:0.5rem;">
+    <thead><tr><th></th><th>Départ</th><th>Retour</th></tr></thead>
+    <tbody>
+      <tr><td style="font-weight:600;">Date / Heure</td><td><input type="text" placeholder="jj/mm hh:mm" style="height:32px;" /></td><td><input type="text" placeholder="jj/mm hh:mm" style="height:32px;" /></td></tr>
+      <tr><td style="font-weight:600;">Jauge carburant</td><td><input type="text" placeholder="Ex : 3/4" style="height:32px;" /></td><td><input type="text" placeholder="Ex : 1/2" style="height:32px;" /></td></tr>
+      <tr><td style="font-weight:600;">Compteur kilométrique</td><td><input type="number" style="height:32px;" /></td><td><input type="number" style="height:32px;" /></td></tr>
+      <tr><td style="font-weight:600;">Compteur d'heures</td><td><input type="number" style="height:32px;" /></td><td><input type="number" style="height:32px;" /></td></tr>
+    </tbody>
+  </table>
+
+  <div class="checklist-mini" style="margin-top:1rem;">
+    <label class="checklist-item"><input type="checkbox" checked /> Papiers véhicule conformes (Départ et Retour)</label>
+    <label class="checklist-item"><input type="checkbox" checked /> Outillage complet (Départ et Retour)</label>
+    <label class="checklist-item"><input type="checkbox" /> Électricité vérifiée (Départ et Retour)</label>
+    <label class="checklist-item"><input type="checkbox" /> Pneus vérifiés (Départ et Retour)</label>
+  </div>
+
+  <div class="field" style="margin-bottom:1rem;">
+    <label>Travaux demandés (si écart constaté au retour)</label>
+    <textarea placeholder="Ex : vérification éclairage, réparation bip de recul..."></textarea>
+  </div>
+
+  <div class="field" style="margin-bottom:1rem;">
+    <label>Scan de la fiche complète (check-list papier détaillée, 4 signatures)</label>
+    <div style="border:1px dashed var(--border-strong); border-radius:8px; padding:14px; text-align:center; font-size:12.5px; color:var(--text-muted); background:var(--surface-2);">📎 Joindre le scan de la fiche papier</div>
+  </div>
+
+  <button class="btn-add">+ Enregistrer la fiche</button>
+</div>
+
+<div class="panel" id="panel-commandes" style="display:none;">
+  <h2>Suivi des commandes — Externe / ID Motors</h2>
+  <div class="sub">File d'attente des signalements transmis par le Directeur Technique — prise en charge par l'Assistante Technique</div>
+
+  <table>
+    <thead><tr><th>Véhicule</th><th>Origine</th><th>Signalé par</th><th>Besoin</th><th>Statut commande</th><th>Document (devis/facture)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="veh">0940BU</td>
+        <td><span class="badge badge-idmotors">ID Motors</span></td>
+        <td>Directeur Technique</td>
+        <td>Bouteille de gaz vide</td>
+        <td><span class="badge badge-rupture">Non commandé</span></td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td class="veh">5719TBN</td>
+        <td><span class="badge badge-externe">Externe</span></td>
+        <td>Directeur Technique</td>
+        <td>Réparation carrosserie</td>
+        <td><span class="badge badge-stock">Commande passée</span></td>
+        <td><span class="badge badge-ok">Reçu</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pieces-liees" style="margin-top:1.25rem;">
+    <div class="pieces-liees-header"><span>Traiter le signalement sélectionné</span></div>
+    <div class="grid-3" style="margin-top:10px;">
+      <div class="field"><label>Fournisseur / prestataire</label><input type="text" placeholder="Ex : ID Motors" /></div>
+      <div class="field"><label>Référence commande</label><input type="text" /></div>
+      <div class="field"><label>Statut document</label><select><option>En attente</option><option>Devis reçu</option><option>Facture reçue</option></select></div>
+    </div>
+    <button class="btn-link">📎 Joindre le devis/facture</button>
+  </div>
+
+  <p style="font-size:11.5px; color:var(--text-warning, #BA7517); margin-top:12px; background:#FAEEDA; padding:8px 12px; border-radius:8px;">
+    ⚠️ Point non confirmé : le circuit exact de transmission du document vers les "opérationnels" (probablement OS et/ou RO, sans certitude) n'est pas encore vérifié — la direction du flux (qui envoie à qui) reste à préciser.
+  </p>
+</div>
+
+<div class="annotations">
+  <h3>Notes de conception</h3>
+  <ul>
+    <li>Onglet "Intervention" : <code>origine</code> passée de 2 à 3 valeurs (Équipe Technique / ID Motors / Externe) — corrige la confusion entre deux acteurs internes aux règles de facturation opposées.</li>
+    <li><strong>Règle de gestion — affichage conditionnel</strong> : le champ Origine est masqué pour le rôle <code>Personnel_Technique</code> (valeur "Équipe Technique" injectée automatiquement) et visible pour le rôle <code>Directeur_Technique</code> seul — reflète le fait que c'est lui, et lui seul, qui arbitre entre Équipe Technique et ID Motors, confirmé par le recueil.</li>
+    <li><strong>Correction du 06/08</strong> : le DT ne traite pas lui-même une intervention Externe/ID Motors au-delà du signalement — il transmet à l'Assistante Technique (celle interviewée le 28/07), qui seule passe la commande réelle. Le formulaire se simplifie donc pour le DT dans ce cas (plus de montant, description, pièces liées), remplacé par un simple signalement à transmettre.</li>
+    <li><strong>Nouvel onglet "Suivi Commandes"</strong> : file d'attente des signalements transmis, traitée par l'Assistante Technique (commande, référence, suivi du devis/facture). Le circuit exact vers les "opérationnels" (probablement OS et/ou RO) reste explicitement non confirmé — affiché comme point ouvert à l'écran, pas comme un fait établi.</li>
+    <li><strong>Traçabilité renforcée (06/08)</strong> : <code>PNEU.id_intervention</code> (FK nullable) permet de savoir lors de quelle visite un pneu a été monté/démonté. <code>INTERVENTION_SAV.id_fiche_entree</code> (FK nullable) relie le constat initial du chauffeur (fiche de passation) à la réparation qui en a découlé.</li>
+    <li>Le bloc "Pièces liées" connecte pour la première fois <code>COMMANDE_APPRO</code> à <code>INTERVENTION_SAV</code> via <code>id_intervention</code> — comble le trou anti-fraude signalé par l'équipe elle-même (aucune preuve qu'une pièce commandée soit montée).</li>
+    <li>Onglet "Stock Pièces" : champs alignés sur <code>ARTICLE</code> enrichi (famille, reference, depot, id_client) — colonnes reprises telles quelles du fichier Excel source.</li>
+    <li>Onglet "Suivi Pneus" : nouvelle entité <code>PNEU</code>, traçabilité unitaire par marquage IDR — le statut "Hors service" répond au trou de suivi de fin de vie identifié dans le recueil.</li>
+    <li>Onglet "Fiche de Passation" : nouvelle entité <code>FICHE_PASSATION</code>, volontairement minimaliste (en-tête structuré + scan), pas de duplication ligne par ligne de la check-list papier tant qu'aucun besoin de ce niveau de détail n'est confirmé. <strong>Corrigé le 06/08</strong> : une seule fiche par mission (colonnes Départ/Retour pairées, comme sur le document papier source), et non deux fiches séparées comme dans une première version.</li>
+  </ul>
+</div>
+
+<footer>Wireframe — bascule entre les 5 onglets en haut de l'écran.</footer>
+
+<script>
+var tabs = document.querySelectorAll(".tab");
+for (var i = 0; i < tabs.length; i++) {
+  tabs[i].addEventListener("click", function() {
+    var allTabs = document.querySelectorAll(".tab");
+    for (var j = 0; j < allTabs.length; j++) { allTabs[j].classList.remove("active"); }
+    this.classList.add("active");
+    document.getElementById("panel-intervention").style.display = this.dataset.tab === "intervention" ? "block" : "none";
+    document.getElementById("panel-stock").style.display = this.dataset.tab === "stock" ? "block" : "none";
+    document.getElementById("panel-pneus").style.display = this.dataset.tab === "pneus" ? "block" : "none";
+    document.getElementById("panel-passation").style.display = this.dataset.tab === "passation" ? "block" : "none";
+    document.getElementById("panel-commandes").style.display = this.dataset.tab === "commandes" ? "block" : "none";
+  });
+}
+
+function updateRoleDisplay() {
+  const role = document.getElementById("role-select").value;
+  const origineField = document.getElementById("origine-field");
+  const origineSelect = document.getElementById("origine-select");
+  const note = document.getElementById("role-note");
+
+  if (role === "technique") {
+    origineField.style.display = "none";
+    origineSelect.value = "technique";
+    note.textContent = "Champ Origine masqué — valeur \"Équipe Technique\" injectée automatiquement à l'enregistrement.";
+  } else {
+    origineField.style.display = "block";
+    note.textContent = "Champ Origine visible — le Directeur Technique peut orienter vers ID Motors ou un prestataire externe.";
+  }
+  updateFormShape();
+}
+
+function updateFormShape() {
+  const role = document.getElementById("role-select").value;
+  const origine = document.getElementById("origine-select").value;
+  const isDtExterne = (role === "dt" && origine !== "technique");
+
+  document.getElementById("dates-montant-block").style.display = isDtExterne ? "none" : "grid";
+  document.getElementById("pieces-block").style.display = isDtExterne ? "none" : "block";
+  document.getElementById("pieces-note").style.display = isDtExterne ? "none" : "block";
+  document.getElementById("dt-transfer-note").style.display = isDtExterne ? "block" : "none";
+  document.getElementById("description-label").textContent = isDtExterne ? "Besoin signalé (court)" : "Description des travaux";
+  document.getElementById("description-textarea").placeholder = isDtExterne ? "Ex : bouteille de gaz vide, à commander" : "Ex : vérification éclairage, graissage, remplacement feux...";
+  document.getElementById("btn-intervention").textContent = isDtExterne ? "→ Transmettre à l'Assistante Technique" : "+ Enregistrer l'intervention";
+}
+
+document.getElementById("role-select").addEventListener("change", updateRoleDisplay);
+document.getElementById("origine-select").addEventListener("change", updateFormShape);
+updateRoleDisplay();
+</script>
+
+</body>
+</html>
