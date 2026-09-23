@@ -640,7 +640,7 @@ function Sidebar({ active, onSelect, open, onClose }: { active: SectionId; onSel
             <GitBranch className="h-6 w-6 text-white" strokeWidth={2} />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-bold tracking-tight">Architecture Digitale ID RENTAL</p>
+            <p className="truncate text-sm font-bold tracking-tight">Architecture Digitale</p>
             <p className="truncate text-xs text-white/50">ID Rental</p>
           </div>
           <button onClick={onClose} className="rounded-lg p-1.5 text-white/60 transition hover:bg-white/10 hover:text-white lg:hidden" aria-label="Fermer la navigation">
@@ -673,10 +673,10 @@ function Sidebar({ active, onSelect, open, onClose }: { active: SectionId; onSel
         <div className="border-t border-white/10 px-6 py-5">
           <div className="rounded-xl bg-white/5 p-4">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-semibold text-white/80">Rapport V8</p>
+              <p className="text-xs font-semibold text-white/80">ID RENTAL</p>
               <span className="badge bg-success-500/20 text-success-300 ring-1 ring-success-500/30">Finalisé</span>
             </div>
-            <p className="mt-2 text-[11px] leading-relaxed text-white/40">Présentation destinée au Directeur de la Transformation Digitale.</p>
+            <p className="mt-2 text-[11px] leading-relaxed text-white/40">Direction Transformation Digitale</p>
           </div>
         </div>
         <div className="hidden px-6 pb-5 lg:block">
