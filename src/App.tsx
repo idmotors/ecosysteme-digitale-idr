@@ -585,7 +585,7 @@ function BacklogSection() {
         <div className="mb-4 flex items-center gap-3">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-warning-100 text-warning-700 ring-1 ring-warning-200"><CircleSlash className="h-5 w-5" /></span>
           <div>
-            <h3 className="text-lg font-semibold text-ink-900">Angles Morts & Backlog V3</h3>
+            <h3 className="text-lg font-semibold text-ink-900">Angles Morts & Backlog</h3>
             <p className="text-sm text-ink-500">Périmètres hors V1 nécessitant une évolution du modèle de données (BDD) avant création d'interface.</p>
           </div>
         </div>
@@ -641,7 +641,7 @@ function Sidebar({ active, onSelect, open, onClose }: { active: SectionId; onSel
           </div>
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-bold tracking-tight">Architecture Digitale ID RENTAL</p>
-            <p className="truncate text-xs text-white/50">ID Rental — Architecture d'Entreprise</p>
+            <p className="truncate text-xs text-white/50">ID Rental</p>
           </div>
           <button onClick={onClose} className="rounded-lg p-1.5 text-white/60 transition hover:bg-white/10 hover:text-white lg:hidden" aria-label="Fermer la navigation">
             <X className="h-5 w-5" />
@@ -715,8 +715,8 @@ function Topbar({ section, onMenu }: { section: SectionId; onMenu: () => void })
         </button>
         <div className="flex items-center gap-3 border-l border-ink-200 pl-3">
           <div className="hidden text-right sm:block">
-            <p className="text-sm font-semibold text-ink-900">Architecture EA</p>
-            <p className="text-[11px] text-ink-400">Stage · V8</p>
+            <p className="text-sm font-semibold text-ink-900">Architecture Digitale</p>
+            <p className="text-[11px] text-ink-400">ID RENTAL</p>
           </div>
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-bold text-white">EA</div>
         </div>
