@@ -25,7 +25,7 @@ const navItems: NavItem[] = [
   { id: 'architecture', label: 'Architecture & Flux Métiers', short: 'Architecture', icon: Network, tone: 'from-success-500 to-success-700' },
   { id: 'modules', label: 'Modules UI & Garde-fous', short: 'Modules UI', icon: MonitorSmartphone, tone: 'from-accent-500 to-accent-700' },
   { id: 'ai', label: 'Moteurs IA Python (PoC)', short: 'Moteurs IA', icon: BrainCircuit, tone: 'from-warning-500 to-warning-700' },
-  { id: 'backlog', label: 'Handover & Backlog V3', short: 'Etat des lieux', icon: FlagTriangleRight, tone: 'from-ink-500 to-ink-700' },
+  { id: 'backlog', label: 'Etat des lieux & Backlog', short: 'Etat des lieux', icon: FlagTriangleRight, tone: 'from-ink-500 to-ink-700' },
 ];
 
 const sectionTitles: Record<SectionId, { eyebrow: string; title: string }> = {
@@ -537,7 +537,7 @@ const v3Items: BacklogItem[] = [
 function BacklogSection() {
   return (
     <div className="space-y-10">
-      <SectionHeader eyebrow="Section 04" title="Etat des lieux" subtitle="Analyse chirurgicale du reste à faire : distinction entre les modules où la base de données est déjà prête (Dette UI) et les nouveaux périmètres métiers (V3)." icon={FlagTriangleRight} actions={<Badge tone="neutral">Handover & Scoping</Badge>} />
+      <SectionHeader eyebrow="Section 04" title="Etat des lieux" subtitle="Analyse chirurgicale du reste à faire : distinction entre les modules où la base de données est déjà prête (Dette UI) et les nouveaux périmètres métiers (V3)." icon={FlagTriangleRight} actions={<Badge tone="neutral">Etat des lieux</Badge>} />
       <section>
         <div className="mb-4 flex items-center gap-3">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-success-100 text-success-700 ring-1 ring-success-200"><Database className="h-5 w-5" /></span>
@@ -736,7 +736,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  useEffect(() => { document.title = 'Handover Transformation Digitale — ID Rental'; }, []);
+  useEffect(() => { document.title = 'Transformation Digitale — ID Rental'; }, []);
 
   return (
     <div className="flex min-h-screen bg-ink-50">
@@ -753,8 +753,8 @@ export default function App() {
         </main>
         <footer className="border-t border-ink-200 px-4 py-5 sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 text-xs text-ink-400 sm:flex-row sm:items-center">
-            <p>Handover Transformation Digitale — ID Rental · Stage Architecture d'Entreprise</p>
-            <p>MCD V18 · Rapport V8 · Présentation Direction Transformation Digitale</p>
+            <p>Transformation Digitale — ID Rental</p>
+            <p>Direction Transformation Digitale</p>
           </div>
         </footer>
       </div>
