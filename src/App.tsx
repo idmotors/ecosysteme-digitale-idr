@@ -25,7 +25,7 @@ const navItems: NavItem[] = [
   { id: 'architecture', label: 'Architecture & Flux Métiers', short: 'Architecture', icon: Network, tone: 'from-success-500 to-success-700' },
   { id: 'modules', label: 'Modules UI & Garde-fous', short: 'Modules UI', icon: MonitorSmartphone, tone: 'from-accent-500 to-accent-700' },
   { id: 'ai', label: 'Moteurs IA Python (PoC)', short: 'Moteurs IA', icon: BrainCircuit, tone: 'from-warning-500 to-warning-700' },
-  { id: 'backlog', label: 'Handover & Backlog V3', short: 'Handover', icon: FlagTriangleRight, tone: 'from-ink-500 to-ink-700' },
+  { id: 'backlog', label: 'Handover & Backlog V3', short: 'Etat des lieux', icon: FlagTriangleRight, tone: 'from-ink-500 to-ink-700' },
 ];
 
 const sectionTitles: Record<SectionId, { eyebrow: string; title: string }> = {
